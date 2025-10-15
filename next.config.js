@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ✅ Correct blob domain and subpath
+  // ✅ Correct blob domain and subpath for all static assets
   assetPrefix: "https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product",
 
   eslint: { ignoreDuringBuilds: true },
@@ -13,14 +13,25 @@ const nextConfig = {
       { protocol: "https", hostname: "mghzzpn2s9ixrl0b.public.blob.vercel-storage.com" },
       { protocol: "https", hostname: "blob.vercel-storage.com" },
       { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
-      { protocol: "https", hostname: "static.bakesalevibes.com" } // future optional vanity domain
+      { protocol: "https", hostname: "static.bakesalevibes.com" } // optional vanity domain
     ],
+  },
+
+  // ✅ Rewrite all /images/* requests to pull from Blob
+  async rewrites() {
+    return [
+      {
+        source: "/images/:path*",
+        destination:
+          "https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/:path*",
+      },
+    ];
   },
 
   // ✅ Standalone output for Vercel optimization
   output: "standalone",
 
-  // ✅ Simple debug helper (safe to keep)
+  // ✅ Debug helper (safe to keep)
   webpack: (config, { isServer }) => {
     if (!isServer) {
       console.log("🔧 Using asset prefix:", config.output.publicPath);
