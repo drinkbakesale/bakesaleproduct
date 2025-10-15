@@ -576,7 +576,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/icon-calories-new.png"
+                src="/images/design-mode/icon-calories.png"
                 alt="16 calories icon"
                 width={32}
                 height={32}
@@ -591,7 +591,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/icon-smiley-new.png"
+                src="/images/design-mode/icon-smiley.png"
                 alt="Smiley face icon"
                 width={32}
                 height={32}
@@ -606,7 +606,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/icon-leaf-new.png"
+                src="/images/design-mode/icon-leaf.png"
                 alt="Leaf icon"
                 width={32}
                 height={32}
@@ -621,7 +621,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/icon-lightning-new.png"
+                src="/images/design-mode/icon-lightning.png"
                 alt="Lightning bolt icon"
                 width={32}
                 height={32}
@@ -729,7 +729,7 @@ export default function Component() {
 
       <div className="mb-6 mt-9">
         <Image
-          src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/pouches-on-ice-updated.webp"
+          src="/images/design-mode/pouches-on-ice.webp"
           alt="BakeSale Vibes pouches on ice with elegant charcuterie board"
           width={400}
           height={200}
@@ -762,7 +762,7 @@ export default function Component() {
                   {faq.answer === "image" ? (
                     <div className="flex justify-center">
                       <Image
-                        src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/nutritional-info.png"
+                        src="/images/design-mode/nutritional.png"
                         alt="Nutrition Facts"
                         width={300}
                         height={400}
@@ -782,7 +782,7 @@ export default function Component() {
 
       <div className="mb-6 mt-0">
         <Image
-          src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/gardening-gradient-updated.webp"
+          src="/images/design-mode/gardening-gradient.webp"
           alt="Person gardening with BakeSale Vibes product"
           width={400}
           height={300}
@@ -808,7 +808,7 @@ export default function Component() {
           {!showVideo ? (
             <div className="relative w-full h-full">
               <Image
-                src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/new-video-thumbnail-updated.webp"
+                src="/images/design-mode/new-video-thumbnail.webp"
                 alt="What does BakeSale Vibes feel like?"
                 width={375}
                 height={667}
@@ -856,7 +856,7 @@ export default function Component() {
         <div className="grid grid-cols-3 gap-2 mb-4">
           <div className="text-center">
             <Image
-              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/movie-nights-updated.webp"
+              src="/images/design-mode/movie-nights.webp"
               alt="Movie nights"
               width={80}
               height={80}
@@ -869,7 +869,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/chill-outs.png"
+              src="/images/design-mode/chill.png"
               alt="Chill weeknights"
               width={80}
               height={80}
@@ -882,7 +882,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/winding-down-new.webp"
+              src="/images/design-mode/winding-down.webp"
               alt="Winding down"
               width={80}
               height={80}
@@ -897,7 +897,7 @@ export default function Component() {
         <div className="grid grid-cols-3 gap-2">
           <div className="text-center">
             <Image
-              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/book-club-updated.webp"
+              src="/images/design-mode/book-club.webp"
               alt="Book club"
               width={80}
               height={80}
@@ -910,7 +910,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/bath-square.png"
+              src="/images/design-mode/bath.png"
               alt="Treating yourself"
               width={80}
               height={80}
@@ -923,7 +923,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/resetting.png"
+              src="/images/design-mode/resetting.png"
               alt="Resetting"
               width={80}
               height={80}
@@ -939,7 +939,7 @@ export default function Component() {
 
       <div className="relative mt-24 mb-6 pt-9">
         <Image
-          src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/ways-to-wind-down-updated.webp"
+          src="/images/design-mode/ways-to-wind-down.webp"
           alt="Woman relaxing with art and BakeSale Vibes product"
           width={400}
           height={500}
