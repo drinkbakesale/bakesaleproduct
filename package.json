@@ -10,6 +10,7 @@
     "start": "next start",
     "upload-assets": "node upload-static-to-blob.mjs",
     "verify-blob": "node scripts/verify-blob-storage.mjs"
+    "optimize-images": "node scripts/resize-images.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
