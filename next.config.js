@@ -1,27 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ✅ Point Next.js static assets and public folder to Blob CDN
-  assetPrefix: "https://static.bakesalevibes.com/product",
+  // ✅ Correct blob domain and subpath
+  assetPrefix: "https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product",
 
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
 
+  // ✅ Image loader setup for Blob + future static domain
   images: {
-    unoptimized: true, // Required for external CDN without optimization loader
+    unoptimized: true,
     remotePatterns: [
-      // ✅ Allow the main static domain
-      { protocol: "https", hostname: "static.bakesalevibes.com" },
-      // ✅ Allow Vercel Blob public and internal patterns (for backwards compatibility)
+      { protocol: "https", hostname: "mghzzpn2s9ixrl0b.public.blob.vercel-storage.com" },
       { protocol: "https", hostname: "blob.vercel-storage.com" },
       { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+      { protocol: "https", hostname: "static.bakesalevibes.com" } // future optional vanity domain
     ],
   },
 
-  // ❌ Remove custom publicPath override — assetPrefix handles this automatically
-  // ✅ Keep standalone output for Vercel optimization
+  // ✅ Standalone output for Vercel optimization
   output: "standalone",
 
-  // Optional: helpful debug output if needed
+  // ✅ Simple debug helper (safe to keep)
   webpack: (config, { isServer }) => {
     if (!isServer) {
       console.log("🔧 Using asset prefix:", config.output.publicPath);
