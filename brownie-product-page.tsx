@@ -251,19 +251,19 @@ function StickyFooter() {
 export default function Component() {
   const thumbnailImages = [
     {
-      src: "https://product.bakesalevibes.com/images/3-boxes-main-updated.webp",
+      src: "https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/3-boxes-main-updated.webp",
       alt: "BakeSale Vibes Brownie Product Box",
     },
     {
-      src: "https://product.bakesalevibes.com/images/box-thumb-2-new.webp",
+      src: "https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/box-thumb-2-new.webp",
       alt: "Multiple BakeSale Vibes Brownie Pouches Layout",
     },
     {
-      src: "https://product.bakesalevibes.com/images/box-thumb-3-updated.webp",
+      src: "https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/box-thumb-3-updated.webp",
       alt: "Open BakeSale Vibes Box with Pouches Inside",
     },
     {
-      src: "https://product.bakesalevibes.com/images/box-thumb-4-new.png",
+      src: "https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/box-thumb-4-new.png",
       alt: "BakeSale Vibes Box - The Tastiest Way to Unwind",
     },
   ]
@@ -300,7 +300,9 @@ export default function Component() {
     },
   ]
 
-  const [mainImage, setMainImage] = useState("https://product.bakesalevibes.com/images/3-boxes-main-updated.webp")
+  const [mainImage, setMainImage] = useState(
+    "https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/3-boxes-main-updated.webp",
+  )
   const [selectedQuantity, setSelectedQuantity] = useState(2) // Default to 2 boxes
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [showVideo, setShowVideo] = useState(false)
@@ -311,32 +313,32 @@ export default function Component() {
   usePreloadCheckout(selectedQuantity, fbclid)
 
   const quantityOptions = [
-  {
-    id: 1,
-    label: "1 Box (12 pouches)",
-    price: "$45.00",
-    qty: 1,
-    url: `https://landing.bakesalevibes.com/checkout/?qty=1${fbclid ? `&fbclid=${fbclid}` : ""}`,
-  },
-  {
-    id: 2,
-    label: "2 Boxes - Most Popular",
-    price: "$68.00",
-    originalPrice: "$90.00",
-    savings: "You save 24%",
-    qty: 2,
-    url: `https://landing.bakesalevibes.com/checkout/?qty=2${fbclid ? `&fbclid=${fbclid}` : ""}`,
-  },
-  {
-    id: 3,
-    label: "3 Boxes - Best Savings",
-    price: "$95.00",
-    originalPrice: "$135.00",
-    savings: "You save 30%",
-    qty: 3,
-    url: `https://landing.bakesalevibes.com/checkout/?qty=3${fbclid ? `&fbclid=${fbclid}` : ""}`,
-  },
-]
+    {
+      id: 1,
+      label: "1 Box (12 pouches)",
+      price: "$45.00",
+      qty: 1,
+      url: `https://landing.bakesalevibes.com/checkout/?qty=1${fbclid ? `&fbclid=${fbclid}` : ""}`,
+    },
+    {
+      id: 2,
+      label: "2 Boxes - Most Popular",
+      price: "$68.00",
+      originalPrice: "$90.00",
+      savings: "You save 24%",
+      qty: 2,
+      url: `https://landing.bakesalevibes.com/checkout/?qty=2${fbclid ? `&fbclid=${fbclid}` : ""}`,
+    },
+    {
+      id: 3,
+      label: "3 Boxes - Best Savings",
+      price: "$95.00",
+      originalPrice: "$135.00",
+      savings: "You save 30%",
+      qty: 3,
+      url: `https://landing.bakesalevibes.com/checkout/?qty=3${fbclid ? `&fbclid=${fbclid}` : ""}`,
+    },
+  ]
 
   const selectedOption = quantityOptions.find((option) => option.id === selectedQuantity)
 
@@ -574,7 +576,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/images/icon-calories-new.png"
+                src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/icon-calories-new.png"
                 alt="16 calories icon"
                 width={32}
                 height={32}
@@ -589,7 +591,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/images/icon-smiley-new.png"
+                src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/icon-smiley-new.png"
                 alt="Smiley face icon"
                 width={32}
                 height={32}
@@ -604,7 +606,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/images/icon-leaf-new.png"
+                src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/icon-leaf-new.png"
                 alt="Leaf icon"
                 width={32}
                 height={32}
@@ -619,7 +621,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/images/icon-lightning-new.png"
+                src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/icon-lightning-new.png"
                 alt="Lightning bolt icon"
                 width={32}
                 height={32}
@@ -727,7 +729,7 @@ export default function Component() {
 
       <div className="mb-6 mt-9">
         <Image
-          src="/images/pouches-on-ice-updated.webp"
+          src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/pouches-on-ice-updated.webp"
           alt="BakeSale Vibes pouches on ice with elegant charcuterie board"
           width={400}
           height={200}
@@ -760,7 +762,7 @@ export default function Component() {
                   {faq.answer === "image" ? (
                     <div className="flex justify-center">
                       <Image
-                        src="/images/nutritional-info.png"
+                        src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/nutritional-info.png"
                         alt="Nutrition Facts"
                         width={300}
                         height={400}
@@ -780,7 +782,7 @@ export default function Component() {
 
       <div className="mb-6 mt-0">
         <Image
-          src="/images/gardening-gradient-updated.webp"
+          src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/gardening-gradient-updated.webp"
           alt="Person gardening with BakeSale Vibes product"
           width={400}
           height={300}
@@ -806,7 +808,7 @@ export default function Component() {
           {!showVideo ? (
             <div className="relative w-full h-full">
               <Image
-                src="/images/new-video-thumbnail-updated.webp"
+                src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/new-video-thumbnail-updated.webp"
                 alt="What does BakeSale Vibes feel like?"
                 width={375}
                 height={667}
@@ -854,7 +856,7 @@ export default function Component() {
         <div className="grid grid-cols-3 gap-2 mb-4">
           <div className="text-center">
             <Image
-              src="/images/movie-nights-updated.webp"
+              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/movie-nights-updated.webp"
               alt="Movie nights"
               width={80}
               height={80}
@@ -867,7 +869,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="/images/chill-outs.png"
+              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/chill-outs.png"
               alt="Chill weeknights"
               width={80}
               height={80}
@@ -880,7 +882,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="/images/winding-down-new.webp"
+              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/winding-down-new.webp"
               alt="Winding down"
               width={80}
               height={80}
@@ -895,7 +897,7 @@ export default function Component() {
         <div className="grid grid-cols-3 gap-2">
           <div className="text-center">
             <Image
-              src="/images/book-club-updated.webp"
+              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/book-club-updated.webp"
               alt="Book club"
               width={80}
               height={80}
@@ -908,7 +910,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="/images/bath-square.png"
+              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/bath-square.png"
               alt="Treating yourself"
               width={80}
               height={80}
@@ -921,7 +923,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="/images/resetting.png"
+              src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/resetting.png"
               alt="Resetting"
               width={80}
               height={80}
@@ -937,7 +939,7 @@ export default function Component() {
 
       <div className="relative mt-24 mb-6 pt-9">
         <Image
-          src="/images/ways-to-wind-down-updated.webp"
+          src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/ways-to-wind-down-updated.webp"
           alt="Woman relaxing with art and BakeSale Vibes product"
           width={400}
           height={500}
