@@ -3,6 +3,7 @@ import path from "path";
 import mime from "mime"; // 👈 NEW: add this dependency
 import { put, list } from "@vercel/blob";
 
+const FORCE_REUPLOAD = true;
 const ROOT = process.cwd();
 const foldersToUpload = [
   ".next/static",
