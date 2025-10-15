@@ -1,12 +1,14 @@
 import fs from "fs";
 import path from "path";
+import mime from "mime"; // 👈 NEW: add this dependency
 import { put, list } from "@vercel/blob";
 
 const ROOT = process.cwd();
 const foldersToUpload = [
   ".next/static",
   "public/images",
-  "public/videos"
+  "public/videos",
+  "public/fonts", // 👈 optional: include fonts if you have any
 ];
 
 async function uploadFiles() {
@@ -26,7 +28,7 @@ async function uploadFiles() {
   const existingFiles = new Set();
   try {
     const { blobs } = await list({ token: process.env.BLOB_READ_WRITE_TOKEN });
-    blobs.forEach(blob => existingFiles.add(blob.pathname));
+    blobs.forEach((blob) => existingFiles.add(blob.pathname));
     console.log(`📋 Found ${existingFiles.size} existing files in Blob storage`);
   } catch {
     console.log("⚠️  Could not list existing files, will upload all");
@@ -52,11 +54,10 @@ async function uploadFiles() {
     for (const filePath of allFiles) {
       const rel = filePath.replace(ROOT + "/", "");
 
-      // Clean up "public/" so images/videos end up at /product/images/... instead of /product/public/images/...
-      const normalizedRel = rel.startsWith("public/")
-        ? rel.replace("public/", "")
-        : rel;
+      // ✅ Normalize path: remove "public/" prefix if present
+      const normalizedRel = rel.replace(/^public\//, "");
 
+      // ✅ Prefix all uploads with product/
       const dest = `product/${normalizedRel}`;
 
       if (existingFiles.has(dest)) {
@@ -67,11 +68,15 @@ async function uploadFiles() {
 
       try {
         const data = fs.readFileSync(filePath);
+        const contentType = mime.getType(filePath) || "application/octet-stream"; // ✅ detect MIME
+
         const res = await put(dest, data, {
           access: "public",
-          token: process.env.BLOB_READ_WRITE_TOKEN
+          token: process.env.BLOB_READ_WRITE_TOKEN,
+          contentType, // ✅ ensures correct MIME type
         });
-        console.log(`   ✅ ${normalizedRel.padEnd(50)} → ${res.url.substring(0, 60)}...`);
+
+        console.log(`   ✅ ${normalizedRel.padEnd(50)} → ${res.url.substring(0, 70)}...`);
         totalUploaded++;
       } catch (error) {
         console.error(`   ❌ ${normalizedRel}: ${error.message}`);
@@ -91,10 +96,10 @@ async function uploadFiles() {
   try {
     const { blobs } = await list({
       token: process.env.BLOB_READ_WRITE_TOKEN,
-      prefix: "product/images/"
+      prefix: "product/images/",
     });
     console.log(`\n✅ ${blobs.length} images found in Blob storage:`);
-    blobs.slice(0, 10).forEach(blob => {
+    blobs.slice(0, 10).forEach((blob) => {
       console.log(`   ${blob.pathname} → ${blob.url}`);
     });
   } catch (error) {
