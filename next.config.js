@@ -8,7 +8,7 @@ const nextConfig = {
 
   images: {
     unoptimized: true,
-    remotePatterns: [{ protocol: "https", hostname: "mghzzpn2s9ixrl0b.public.blob.vercel-storage.com" }],
+    remotePatterns: [{ protocol: "https", hostname: "mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images" }],
   },
 
   output: "standalone",
