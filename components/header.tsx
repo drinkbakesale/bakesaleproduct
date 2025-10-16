@@ -25,7 +25,7 @@ export default function Header() {
           <div className="flex justify-center">
             <a href="/" className="block">
               <Image
-                src="/images/design-mode/bakesale-vibes.png"
+                src="https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product/images/bakesale-vibes-logo.png"
                 alt="BakeSale Vibes Logo"
                 width={200}
                 height={60}

@@ -1,12 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  assetPrefix: "https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product",
-  images: {
-    unoptimized: true,
-  },
+  // ❌ REMOVE assetPrefix - it breaks JS/CSS loading
+  // assetPrefix: "https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product",
+
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
-  output: "standalone"
-};
 
-module.exports = nextConfig;
+  images: {
+    unoptimized: true,
+    remotePatterns: [{ protocol: "https", hostname: "mghzzpn2s9ixrl0b.public.blob.vercel-storage.com" }],
+  },
+
+  output: "standalone",
+}
+
+module.exports = nextConfig
