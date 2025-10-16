@@ -1,17 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ✅ Point all static assets to the actual deployment domain
-  assetPrefix: "https://product.bakesalevibes.com",
-
-  eslint: { ignoreDuringBuilds: true },
-  typescript: { ignoreBuildErrors: true },
-
+  assetPrefix: "https://mghzzpn2s9ixrl0b.public.blob.vercel-storage.com/product",
   images: {
     unoptimized: true,
   },
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
+  output: "standalone"
+};
 
-  // ✅ Standalone output for Vercel
-  output: "standalone",
-}
-
-module.exports = nextConfig
+module.exports = nextConfig;
