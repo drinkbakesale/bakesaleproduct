@@ -9,6 +9,12 @@ const nextConfig = {
       ? "https://product.bakesalevibes.com"
       : undefined,
 
+  // ✅ Explicitly disable Vercel Design Mode at build and runtime
+  env: {
+    NEXT_DISABLE_VERCEL_DESIGN_MODE: "true",
+  },
+
+  // ✅ Allow direct blob image access
   images: {
     unoptimized: true,
     remotePatterns: [
