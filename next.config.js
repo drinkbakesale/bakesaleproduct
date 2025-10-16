@@ -1,16 +1,19 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === "production"
+
 const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
 
-  // ✅ Force all asset URLs to point to product domain
-  assetPrefix:
-    process.env.NODE_ENV === "production"
-      ? "https://product.bakesalevibes.com"
-      : undefined,
+  // ✅ Only prefix Next's own static assets, not your images
+  assetPrefix: isProd ? "https://product.bakesalevibes.com/_next/" : undefined,
+
+  // ✅ Fix URLs in the generated HTML
+  basePath: "",
 
   images: {
     unoptimized: true,
+    // Allow external blob storage
     remotePatterns: [
       {
         protocol: "https",
