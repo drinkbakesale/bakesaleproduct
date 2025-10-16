@@ -6,9 +6,9 @@ export function usePreloadCheckout(selectedQuantity: number, fbclid: string) {
   useEffect(() => {
     // Only prefetch cart pages (not checkout pages that cause 404s)
     const cartUrls = [
-      `https://landing.bakesalevibes.com/cart?qty=1${fbclid ? `&fbclid=${fbclid}` : ""}`,
-      `https://landing.bakesalevibes.com/cart?qty=2${fbclid ? `&fbclid=${fbclid}` : ""}`,
-      `https://landing.bakesalevibes.com/cart?qty=3${fbclid ? `&fbclid=${fbclid}` : ""}`,
+      `https://landing.bakesalevibes.com/checkout?qty=1${fbclid ? `&fbclid=${fbclid}` : ""}`,
+      `https://landing.bakesalevibes.com/checkout?qty=2${fbclid ? `&fbclid=${fbclid}` : ""}`,
+      `https://landing.bakesalevibes.com/checkout?qty=3${fbclid ? `&fbclid=${fbclid}` : ""}`,
     ]
 
     const handleLoad = () => {
