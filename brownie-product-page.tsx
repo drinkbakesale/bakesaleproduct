@@ -591,7 +591,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/images/design-mode/icon-smiley(2).png"
+                src="/images/icon-smiley-new.png"
                 alt="Smiley face icon"
                 width={32}
                 height={32}
