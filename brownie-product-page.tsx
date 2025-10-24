@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import Header from "./components/header"
@@ -15,6 +16,147 @@ function getFbclid() {
   return ""
 }
 
+function fixedPositionIsBroken(thresholdPx = 8): boolean {
+  try {
+    const probe = document.createElement("div")
+    Object.assign(probe.style, {
+      position: "fixed",
+      left: "0",
+      bottom: "0",
+      width: "1px",
+      height: "1px",
+      background: "transparent",
+      zIndex: "2147483647",
+      pointerEvents: "none",
+    })
+    document.body.appendChild(probe)
+
+    const rect = probe.getBoundingClientRect()
+    probe.remove()
+
+    const vh = window.visualViewport?.height ?? window.innerHeight
+    const expectedBottom = vh
+    const actualBottom = rect.bottom
+    return Math.abs(expectedBottom - actualBottom) > thresholdPx
+  } catch {
+    return false
+  }
+}
+
+function neutralizeLayoutTrapsOnce() {
+  if (document.getElementById("__fixed_fallback_css")) return
+  const style = document.createElement("style")
+  style.id = "__fixed_fallback_css"
+  style.textContent = `
+    html, body { transform: none !important; overflow: visible !important; height: auto !important; }
+    #__next, main, [data-app-root] { transform: none !important; overflow: visible !important; }
+  `
+  document.head.appendChild(style)
+}
+
+function mountEmergencyStickyBarOnce() {
+  if (document.getElementById("__emergency_sticky")) return
+
+  const bar = document.createElement("div")
+  bar.id = "__emergency_sticky"
+  Object.assign(bar.style, {
+    position: "fixed",
+    left: "0",
+    right: "0",
+    bottom: "0",
+    zIndex: "2147483647",
+    display: "flex",
+    boxShadow: "0 -6px 16px rgba(0,0,0,.15)",
+    background: "#fff",
+    paddingBottom: "env(safe-area-inset-bottom, 0px)",
+    fontFamily: "system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif",
+  })
+
+  const mk = (text: string, styles: Record<string, string>, on: () => void) => {
+    const btn = document.createElement("button")
+    btn.textContent = text
+    Object.assign(btn.style, styles)
+    btn.onclick = on
+    return btn
+  }
+
+  const shop = mk(
+    "SHOP NOW",
+    {
+      width: "66.66%",
+      padding: "16px 0",
+      fontWeight: "800",
+      textTransform: "uppercase",
+      border: "0",
+      background: "#EDA21C",
+      color: "#7B0202",
+      fontSize: "19.2px",
+      fontFamily: "system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif",
+    },
+    () => {
+      const el = document.getElementById("pricing-section")
+      if (!el) return
+      const r = el.getBoundingClientRect()
+      const y = (window.pageYOffset || document.documentElement.scrollTop || 0) + r.top
+      const vh = window.visualViewport?.height ?? window.innerHeight
+      const target = Math.max(0, y - vh / 2 + r.height / 2)
+      try {
+        window.scrollTo({ top: target, behavior: "smooth" })
+      } catch {
+        window.scrollTo(0, target)
+        ;(document.documentElement as any).scrollTop = target
+      }
+    },
+  )
+
+  const chat = mk(
+    "LIVE CHAT",
+    {
+      width: "33.33%",
+      padding: "16px 0",
+      fontWeight: "800",
+      textTransform: "uppercase",
+      border: "0",
+      background: "#AA98D0",
+      color: "#fff",
+      fontSize: "19.2px",
+      fontFamily: "system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif",
+    },
+    () => {
+      try {
+        const w = window as any
+        const g = w.GorgiasChat || w.Gorgias
+        if (g?.isOpen?.()) g.close?.()
+        else g?.open?.()
+      } catch {}
+    },
+  )
+
+  bar.appendChild(shop)
+  bar.appendChild(chat)
+  document.body.appendChild(bar)
+
+  if (!document.getElementById("__emergency_pad")) {
+    const pad = document.createElement("style")
+    pad.id = "__emergency_pad"
+    pad.textContent = `body::after{content:"";display:block;height:calc(64px + env(safe-area-inset-bottom,0px));}`
+    document.head.appendChild(pad)
+  }
+}
+
+function enableFixedFallbackIfNeeded() {
+  if (fixedPositionIsBroken()) {
+    neutralizeLayoutTrapsOnce()
+    mountEmergencyStickyBarOnce()
+  }
+}
+
+function disableFixedFallback() {
+  document.getElementById("__fixed_fallback_css")?.remove()
+  document.getElementById("__emergency_sticky")?.remove()
+  document.getElementById("__emergency_pad")?.remove()
+}
+
 function StickyFooter() {
   const [mounted, setMounted] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
@@ -23,7 +165,15 @@ function StickyFooter() {
     setMounted(true)
 
     const handleScroll = () => {
-      const faqSection = document.getElementById("faq-section")
+      let faqSection = document.getElementById("faq-section")
+
+      if (!faqSection) {
+        const headings = document.querySelectorAll("h3")
+        faqSection = Array.from(headings).find((h) =>
+          h.textContent?.includes("You're Probably Wondering"),
+        ) as HTMLElement
+      }
+
       if (!faqSection) return
 
       const rect = faqSection.getBoundingClientRect()
@@ -32,15 +182,28 @@ function StickyFooter() {
 
     handleScroll()
     window.addEventListener("scroll", handleScroll, { passive: true })
+
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   if (!mounted || !isVisible) return null
 
-  const scrollToPricing = () => {
+  const portalTarget = typeof document !== "undefined" ? document.body : null
+  if (!portalTarget) return null
+
+  const centerScrollTo = () => {
     const el = document.getElementById("pricing-section")
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "center" })
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const docY = window.pageYOffset || document.documentElement.scrollTop || 0
+    const top = rect.top + docY
+    const vh = window.visualViewport?.height ?? window.innerHeight
+    const target = Math.max(0, top - vh / 2 + rect.height / 2)
+    try {
+      window.scrollTo({ top: target, behavior: "smooth" })
+    } catch {
+      window.scrollTo(0, target)
+      document.documentElement.scrollTop = target
     }
   }
 
@@ -54,17 +217,22 @@ function StickyFooter() {
     }
   }
 
-  return (
+  return createPortal(
     <div
-      className={`fixed left-0 right-0 bottom-0 z-[999] flex shadow-[0_-4px_16px_rgba(0,0,0,0.15)] transition-transform duration-300 bg-white ${
+      id="sticky-footer"
+      className={`fixed left-0 right-0 bottom-0 z-[2147483647] flex shadow-[0_-4px_16px_rgba(0,0,0,0.15)] transition-transform duration-300 ease-in-out ${
         isVisible ? "translate-y-0" : "translate-y-full"
       }`}
-      style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+      style={{
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
+        WebkitTransform: isVisible ? "translateZ(0)" : "translateZ(0) translateY(100%)",
+        background: "#fff",
+      }}
     >
       <button
         className="w-2/3 text-center py-4 font-bold uppercase hover:opacity-90 transition-opacity"
         style={{ backgroundColor: "#EDA21C", color: "#531700", fontSize: "19.2px" }}
-        onClick={scrollToPricing}
+        onClick={centerScrollTo}
       >
         SHOP NOW
       </button>
@@ -75,7 +243,8 @@ function StickyFooter() {
       >
         LIVE CHAT
       </button>
-    </div>
+    </div>,
+    portalTarget,
   )
 }
 
@@ -189,6 +358,8 @@ export default function Component() {
   }
 
   useEffect(() => {
+    enableFixedFallbackIfNeeded()
+
     const hideGorgiasCSS = `
       iframe[id="chat-button"],
       .gorgias-chat-button,
@@ -205,51 +376,81 @@ export default function Component() {
     const loadAllScripts = () => {
       const loadScript = (src: string, id?: string, async = false) =>
         new Promise((resolve) => {
-          if (id && document.getElementById(id)) {
-            resolve(true)
-            return
+          try {
+            if (id && document.getElementById(id)) {
+              resolve(true)
+              return
+            }
+            const s = document.createElement("script")
+            if (id) s.id = id
+            s.src = src
+            s.async = async
+            s.onload = () => resolve(true)
+            s.onerror = (e) => {
+              console.warn(`Failed to load script: ${src}`, e)
+              resolve(false)
+            }
+            document.head.appendChild(s)
+          } catch (e) {
+            console.warn(`Error creating script element for: ${src}`, e)
+            resolve(false)
           }
-          const s = document.createElement("script")
-          if (id) s.id = id
-          s.src = src
-          s.async = async
-          s.onload = () => resolve(true)
-          s.onerror = () => resolve(false)
-          document.head.appendChild(s)
         })
 
       setTimeout(async () => {
-        await loadScript(
-          "https://config.gorgias.chat/bundle-loader/01JQSNZSF0ETDCVXMG4DKN0EKX",
-          "gorgias-chat-widget-install-v3",
-          true,
-        )
+        try {
+          await loadScript(
+            "https://config.gorgias.chat/bundle-loader/01JQSNZSF0ETDCVXMG4DKN0EKX",
+            "gorgias-chat-widget-install-v3",
+            true,
+          )
+        } catch (error) {
+          console.warn("Error loading Gorgias script:", error)
+        }
       }, 500)
 
       setTimeout(async () => {
-        await loadScript(
-          "https://bundle.5gtb.com/loader.js?g_cvt_id=77c02f1d-ae53-49f2-8bbf-f5da05d5e79f",
-          "bundle-script",
-          true,
-        )
+        try {
+          await loadScript(
+            "https://bundle.5gtb.com/loader.js?g_cvt_id=77c02f1d-ae53-49f2-8bbf-f5da05d5e79f",
+            "bundle-script",
+            true,
+          )
+        } catch (bundleError) {
+          console.warn("Bundle script failed to load:", bundleError)
+        }
       }, 300)
 
       setTimeout(() => {
-        if (!document.querySelector('script[src="https://player.vimeo.com/api/player.js"]')) {
-          const s = document.createElement("script")
-          s.src = "https://player.vimeo.com/api/player.js"
-          s.async = true
-          document.head.appendChild(s)
+        try {
+          if (!document.querySelector('script[src="https://player.vimeo.com/api/player.js"]')) {
+            const s = document.createElement("script")
+            s.src = "https://player.vimeo.com/api/player.js"
+            s.async = true
+            document.head.appendChild(s)
+          }
+        } catch (error) {
+          console.warn("Error loading Vimeo script:", error)
         }
       }, 800)
     }
 
-    if (document.readyState === "complete") {
-      setTimeout(loadAllScripts, 800)
-    } else {
-      window.addEventListener("load", () => {
+    const initializeScripts = () => {
+      if (document.readyState === "complete") {
         setTimeout(loadAllScripts, 800)
-      })
+      } else {
+        window.addEventListener("load", () => {
+          setTimeout(loadAllScripts, 800)
+        })
+      }
+    }
+
+    initializeScripts()
+
+    const originalConsoleError = console.error
+    console.error = (...args: any[]) => {
+      if (args[0] && typeof args[0] === "string" && args[0].includes("Amplitude Logger")) return
+      originalConsoleError.apply(console, args)
     }
 
     const hideMessengerButton = () => {
@@ -259,16 +460,32 @@ export default function Component() {
         elements.forEach((element) => {
           if (element instanceof HTMLElement) {
             element.style.display = "none"
+            element.style.visibility = "hidden"
+            element.style.opacity = "0"
           }
         })
       })
     }
+    hideMessengerButton()
 
-    const observer = new MutationObserver(hideMessengerButton)
-    observer.observe(document.body, { childList: true, subtree: true })
+    let observer: MutationObserver | null = null
+    try {
+      observer = new MutationObserver(() => hideMessengerButton())
+      observer.observe(document.body, { childList: true, subtree: true })
+    } catch (error) {
+      console.warn("Error setting up MutationObserver:", error)
+    }
 
     return () => {
-      observer.disconnect()
+      try {
+        observer?.disconnect()
+        disableFixedFallback()
+        document.getElementById("gorgias-chat-widget-install-v3")?.remove()
+        document.getElementById("bundle-script")?.remove()
+        console.error = originalConsoleError
+      } catch (error) {
+        console.warn("Error during cleanup:", error)
+      }
     }
   }, [])
 
