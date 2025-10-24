@@ -576,7 +576,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/images/design-mode/icon-calories(4).png"
+                src="/images/design-mode/icon-calories(5).png"
                 alt="16 calories icon"
                 width={32}
                 height={32}
@@ -591,7 +591,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/images/design-mode/icon-smiley(4).png"
+                src="/images/design-mode/icon-smiley(5).png"
                 alt="Smiley face icon"
                 width={32}
                 height={32}
@@ -606,7 +606,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/images/design-mode/icon-leaf(4).png"
+                src="/images/design-mode/icon-leaf(5).png"
                 alt="Leaf icon"
                 width={32}
                 height={32}
@@ -621,7 +621,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/images/design-mode/icon-lightning(4).png"
+                src="/images/design-mode/icon-lightning(5).png"
                 alt="Lightning bolt icon"
                 width={32}
                 height={32}
@@ -729,7 +729,7 @@ export default function Component() {
 
       <div className="mb-6 mt-9">
         <Image
-          src="/images/design-mode/pouches-on-ice(4).webp"
+          src="/images/design-mode/pouches-on-ice(5).webp"
           alt="BakeSale Vibes pouches on ice with elegant charcuterie board"
           width={400}
           height={200}
@@ -762,7 +762,7 @@ export default function Component() {
                   {faq.answer === "image" ? (
                     <div className="flex justify-center">
                       <Image
-                        src="/images/design-mode/nutritional(4).png"
+                        src="/images/design-mode/nutritional(5).png"
                         alt="Nutrition Facts"
                         width={300}
                         height={400}
@@ -782,7 +782,7 @@ export default function Component() {
 
       <div className="mb-6 mt-0">
         <Image
-          src="/images/design-mode/gardening-gradient(3).webp"
+          src="/images/design-mode/gardening-gradient(4).webp"
           alt="Person gardening with BakeSale Vibes product"
           width={400}
           height={300}
@@ -808,7 +808,7 @@ export default function Component() {
           {!showVideo ? (
             <div className="relative w-full h-full">
               <Image
-                src="/images/design-mode/video.png"
+                src="/images/design-mode/video(1).png"
                 alt="What does BakeSale Vibes feel like?"
                 width={375}
                 height={667}
@@ -856,7 +856,7 @@ export default function Component() {
         <div className="grid grid-cols-3 gap-2 mb-4">
           <div className="text-center">
             <Image
-              src="/images/design-mode/movie-nights(4).webp"
+              src="/images/design-mode/movie-nights(5).webp"
               alt="Movie nights"
               width={80}
               height={80}
@@ -869,7 +869,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="/images/design-mode/chill(4).png"
+              src="/images/design-mode/chill(5).png"
               alt="Chill weeknights"
               width={80}
               height={80}
@@ -882,7 +882,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="/images/design-mode/winding-down(4).webp"
+              src="/images/design-mode/winding-down(5).webp"
               alt="Winding down"
               width={80}
               height={80}
@@ -897,7 +897,7 @@ export default function Component() {
         <div className="grid grid-cols-3 gap-2">
           <div className="text-center">
             <Image
-              src="/images/design-mode/book-club(4).webp"
+              src="/images/design-mode/book-club(5).webp"
               alt="Book club"
               width={80}
               height={80}
@@ -910,7 +910,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="/images/design-mode/bath(4).png"
+              src="/images/design-mode/bath(5).png"
               alt="Treating yourself"
               width={80}
               height={80}
@@ -923,7 +923,7 @@ export default function Component() {
           </div>
           <div className="text-center">
             <Image
-              src="/images/design-mode/resetting(4).png"
+              src="/images/design-mode/resetting(5).png"
               alt="Resetting"
               width={80}
               height={80}
@@ -939,7 +939,7 @@ export default function Component() {
 
       <div className="relative mt-24 mb-6 pt-9">
         <Image
-          src="/images/design-mode/ways-to-wind-down(4).webp"
+          src="/images/design-mode/ways-to-wind-down(5).webp"
           alt="Woman relaxing with art and BakeSale Vibes product"
           width={400}
           height={500}
