@@ -3,18 +3,39 @@ const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
 
-  // ✅ Force all asset URLs to point to product domain
   assetPrefix:
     process.env.NODE_ENV === "production"
       ? "https://product.bakesalevibes.com"
       : undefined,
 
-  // ✅ Explicitly disable Vercel Design Mode at build and runtime
   env: {
     NEXT_DISABLE_VERCEL_DESIGN_MODE: "true",
   },
 
-  // ✅ Allow direct blob image access
+  // 🚫 Block any design-mode route
+  async redirects() {
+    return [
+      {
+        source: "/:path*(design-mode)/*",
+        destination: "/404",
+        permanent: false,
+      },
+    ];
+  },
+
+  // 🚫 Disallow caching / indexing of design-mode assets
+  async headers() {
+    return [
+      {
+        source: "/:path*(design-mode)/*",
+        headers: [
+          { key: "Cache-Control", value: "no-store" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+    ];
+  },
+
   images: {
     unoptimized: true,
     remotePatterns: [
