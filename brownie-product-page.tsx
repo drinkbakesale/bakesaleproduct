@@ -576,7 +576,7 @@ export default function Component() {
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/images/design-mode/icon-calories(5).png"
+                src="/images/design-mode/icon-calories(6).png"
                 alt="16 calories icon"
                 width={32}
                 height={32}
