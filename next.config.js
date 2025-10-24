@@ -3,10 +3,7 @@ const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
 
-  assetPrefix:
-    process.env.NODE_ENV === "production"
-      ? "https://product.bakesalevibes.com"
-      : undefined,
+  assetPrefix: process.env.NODE_ENV === "production" ? "https://product.bakesalevibes.com" : undefined,
 
   env: {
     NEXT_DISABLE_VERCEL_DESIGN_MODE: "true",
@@ -16,24 +13,24 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/:path*(design-mode)/*",
+        source: "/images/design-mode/:path*",
         destination: "/404",
         permanent: false,
       },
-    ];
+    ]
   },
 
   // 🚫 Disallow caching / indexing of design-mode assets
   async headers() {
     return [
       {
-        source: "/:path*(design-mode)/*",
+        source: "/images/design-mode/:path*",
         headers: [
           { key: "Cache-Control", value: "no-store" },
           { key: "X-Robots-Tag", value: "noindex, nofollow" },
         ],
       },
-    ];
+    ]
   },
 
   images: {
