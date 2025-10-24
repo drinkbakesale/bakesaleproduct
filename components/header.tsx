@@ -25,7 +25,7 @@ export default function Header() {
           <div className="flex justify-center">
             <a href="/" className="block">
               <Image
-                src="/images/design-mode/bakesale-vibes(3).png"
+                src="/images/design-mode/bakesale-vibes(4).png"
                 alt="BakeSale Vibes Logo"
                 width={200}
                 height={60}
